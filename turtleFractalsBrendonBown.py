@@ -1,7 +1,6 @@
 import turtle
 import math
 import time
-import random
 
 def makeHexagon(isRight):
     if isRight == RIGHT:
@@ -20,18 +19,18 @@ def makeHexagon(isRight):
 def makeHexOnHex(isRight):
     if isRight:
         makeHexagon(RIGHT);
-        left(60);
+        turtle.left(60);
         makeHexagon(LEFT);
-        left(60);
+        turtle.left(60);
         makeHexagon(RIGHT);
-        right(60);
+        turtle.right(60);
     else:
         makeHexagon(LEFT);
-        right(60);
+        turtle.right(60);
         makeHexagon(RIGHT);
-        right(60);
+        turtle.right(60);
         makeHexagon(LEFT);
-        left(60);
+        turtle.left(60);
         
 
 turtle.penup();
@@ -67,25 +66,15 @@ while True:
         turn = -120;
         direction = LEFT;
 
-    for i in range(int(math.pow(3, cycle - 1))):
+    for i in range(int(math.pow(3, cycle - 2))):
 
-        #Make a hexagon in the correct direction (alternating evens and odds)
-        if i % 2 == 0:
-            makeHexagon(direction);
-        else:
-            makeHexagon(not direction);
-
-        #Determine whether or not it is time to switch
-        if i % 3 == 2:
-            if turn == 60:
-                turn = -120;
-            elif turn == -120:
-                turn = 60;
-
-        turtle.right(turn);
+        if math.pow(3, cycle - 2) == (1 / 3):
+            makeHexagon(RIGHT);
+            break;
         
+        makeHexOnHex(direction);
         
-    #turtle.clear();    
+    turtle.clear();    
 
     length *= math.sqrt(3) / 2;
     
