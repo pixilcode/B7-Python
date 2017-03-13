@@ -1,6 +1,6 @@
 # Tic-Tac-Toe
 
-import random
+from random import randint
 import time
 
 def drawBoard(board):
@@ -12,6 +12,12 @@ def drawBoard(board):
     print(board[4] + '|' + board[5] + '|' + board[6]);
     print('-+-+-');
     print(board[1] + '|' + board[2] + '|' + board[3]);
+
+def clearBoard(board, cleared):
+    for i in range(len(board)):
+        board[i] = cleared;
+
+    return board;
 
 def inputPlayerLetter():
     #Lets the player type which letter they want to be
@@ -74,7 +80,7 @@ def getPlayerMove(board, playerName):
         move = input();
 
     print('Interesting choice.');
-    return move;
+    return int(move);
 
 def getBestMove(board):
     #The heirarchy of moves and an array to hold the options
@@ -140,6 +146,13 @@ def printStringSlowly(phrase, opening = '', end = '', separationTime = 1):
 
     print(end);
 
+def isBoardFull(board):
+    #Return true if every space is taken
+    for i in range(1, 10):
+        if isSpaceFree(board, i):
+            return False;
+    return True;
+
 #Game Loop
 #Introduction
 print('So, a human has decided to challenge me.');
@@ -151,7 +164,10 @@ time.sleep(2);
 print('Because if you aren\'t, you should probably just give up now.');
 time.sleep(2);
 printStringSlowly(['un', 'beat', 'a', 'ble'], opening = 'For I am ', end = '.');
+time.sleep(2);
 print('Shall we begin?');
+time.sleep(2);
+
 
 #Loop
 while True:
@@ -170,10 +186,67 @@ while True:
         if turn == 'player':
             #Player's turn
             drawBoard(gameBoard);
-            move = getPlayerMove(gameBoard);
+            move = getPlayerMove(gameBoard, playerName);
             makeMove(gameBoard, playerLetter, move);
 
             #Check to see if the player is the winner
             if isWinner(gameBoard, playerLetter):
                 drawBoard(gameBoard);
                 print('I am impressed with your skill.');
+                print('I would like to challenge you to a rematch. Do you agree? (y/n)');
+                answer = input();
+                if answer.upper() == 'Y':
+                    gameBoard = clearBoard(gameBoard, ' ');
+                    continue;
+                else:
+                    print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
+                    gameIsPlaying = False;
+                    break;
+            else:
+                if isBoardFull(gameBoard):
+                    drawBoard(gameBoard);
+                    print('I have kept you from winning, which is a win in and of itself.');
+                    print('However, I would like to challenge you to a rematch. Do you agree? (y/n)');
+                    answer = input();
+                    if answer.upper() == 'Y':
+                        gameBoard = clearBoard(gameBoard, ' ');
+                        continue;
+                    else:
+                        print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
+                        gameIsPlaying = False;
+                        break;
+                else:
+                    turn = 'computer';
+            
+        else:
+            #Computer's turn
+            move = chooseMove(gameBoard, computerLetter, playerLetter);
+            makeMove(gameBoard, computerLetter, move);
+
+            if isWinner(gameBoard, computerLetter):
+                drawBoard(gameBoard);
+                print('Hah! I win! I told you that you would lose.');
+                print('Would you like to risk losing again? If so, we can play again. (y/n)');
+                answer = input();
+                if answer.upper() == 'Y':
+                    gameBoard = clearBoard(gameBoard, ' ');
+                    continue;
+                else:
+                    print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
+                    gameIsPlaying = False;
+                    break;
+            else:
+                if isBoardFull(gameBoard):
+                    drawBoard(gameBoard);
+                    print('I have kept you from winning, which is a win in and of itself.');
+                    print('However, I would like to challenge you to a rematch. Do you agree? (y/n)');
+                    answer = input();
+                    if answer.upper() == 'Y':
+                        gameBoard = clearBoard(gameBoard, ' ');
+                        continue;
+                    else:
+                        print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
+                        gameIsPlaying = False;
+                        break;
+                else:
+                    turn = 'player';
