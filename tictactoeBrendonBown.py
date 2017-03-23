@@ -197,7 +197,7 @@ while True:
                 answer = input();
                 if answer.upper() == 'Y':
                     gameBoard = clearBoard(gameBoard, ' ');
-                    continue;
+                    break;
                 else:
                     print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
                     gameIsPlaying = False;
@@ -210,7 +210,7 @@ while True:
                     answer = input();
                     if answer.upper() == 'Y':
                         gameBoard = clearBoard(gameBoard, ' ');
-                        continue;
+                        break;
                     else:
                         print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
                         gameIsPlaying = False;
@@ -230,7 +230,7 @@ while True:
                 answer = input();
                 if answer.upper() == 'Y':
                     gameBoard = clearBoard(gameBoard, ' ');
-                    continue;
+                    break;
                 else:
                     print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
                     gameIsPlaying = False;
@@ -243,10 +243,12 @@ while True:
                     answer = input();
                     if answer.upper() == 'Y':
                         gameBoard = clearBoard(gameBoard, ' ');
-                        continue;
+                        break;
                     else:
                         print('I see you don\'t dare to challenge me again. That\'s okay. I know that I\'m still better. Have a good day.');
                         gameIsPlaying = False;
                         break;
                 else:
                     turn = 'player';
+    if not(gameIsPlaying):
+        break;
