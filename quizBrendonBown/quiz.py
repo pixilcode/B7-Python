@@ -2,6 +2,8 @@ from quizElements import Quiz, Question
 import pickle, os
 
 def getAllQuizzes():
+    #If there are not any quizzes, return an empty array
+    #Otherwise, open the file and get the quizzes
     if not os.path.isfile('quizzes.dat'):
         return [];
     else:
@@ -11,7 +13,10 @@ def getAllQuizzes():
         return data;
 
 def createQuiz():
+    #Get the name of the quiz
     quiz = Quiz(input('What is the name of the quiz? >>> '));
+
+    #While they still want to ask a question, get the question
     again = 'Y';
     while not again == 'N':
         print();
@@ -25,18 +30,25 @@ def createQuiz():
         quiz.addQuestion(Question(question, numOfOps, options, correctAnswer));
         again = input('Add another question? (Y/N) >>> ');
 
+    #Add the quiz to the collection of quizzes
     quizzes.append(quiz);
 
 def saveQuizzes():
+    #Save the quizzes in a .dat file
     file = open('quizzes.dat', 'wb');
     pickle.dump(quizzes, file);
     file.close();
 
 def ask(question):
+    #Print the question
     print(question.question + '\n');
+
+    #Print the options
     for option in range(question.numOfOptions):
         print(str(option + 1) + '. ' + question.options[option]);
     print();
+
+    #Ask for the answer and if it is correct, return True, otherwise return False
     answer = int(input('Answer (Type the option number) >>> '));
     if answer == int(question.correctAnswer):
         print('Correct');
@@ -48,16 +60,27 @@ def ask(question):
         return False;
 
 def takeQuiz(quiz):
+    #Set the quiz score to 0
     quiz.score = 0;
+
+    #Print the quiz name
     print('\n\n\n' + quiz.name);
+
+    #Ask each question
     for question in quiz.questions:
         if ask(question):
             quiz.score += 1;
-    
+
+    #Print the quiz score
     print('\nYour score is ' + str(quiz.score) + ' out of ' + str(len(quiz.questions)));
 
+#Get each of the available quizzes
 quizzes = getAllQuizzes();
+
+#Print intro
 print('Welcome to Quizzer!');
+
+#While they are still wanting to take the test, keep looping
 while True:
     print();
     directions = int(input('Would you like to:\n1. Create a quiz\n2. Take a quiz\n3. Save quizzes\n4. Exit\n(Type the option number) >>> '));
