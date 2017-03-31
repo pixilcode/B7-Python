@@ -1,4 +1,4 @@
-from productClass import Product
+from modules.productClass import Product
 
 def getProduct():
 
@@ -12,3 +12,4 @@ def getProduct():
 
     #Create a product and return it
     product = Product(productNum, productName, productQuantity, productCost);
+    return product;
