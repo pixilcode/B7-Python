@@ -1,4 +1,4 @@
-from employeeClass import Employee
+from modules.employeeClass import Employee
 
 inputExt = "txtFiles/";
 outputExt = "output/"
@@ -32,4 +32,8 @@ def readEmployeeFile():
     for line in laborData:
         words = line.split(" ");
         employees[employee].setWageAndHours(words[0], words[1]);
+        employee += 1;
+
+    return employees;
+
         

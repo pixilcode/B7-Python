@@ -1,4 +1,4 @@
-from modules.inputsDatabase import getProduct
+from modules.user import getProduct
 from modules.readWriteFiles import writeProductFile
 from modules.calculationModule import calculation
 import time

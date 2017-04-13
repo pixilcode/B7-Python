@@ -13,3 +13,7 @@ def getProduct():
     #Create a product and return it
     product = Product(productNum, productName, productQuantity, productCost);
     return product;
+
+def outputEmployeeData(employees):
+    for employee in employees:
+        print(employee.toString());
